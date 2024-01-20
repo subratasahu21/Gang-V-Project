@@ -1,0 +1,16 @@
+import cv2
+from cvzone.HandTrackingModule import HandDetector
+import os
+cap=cv2.VideoCapture(0)
+detector=HandDetector()
+while True:
+    status, photo=cap.read()
+    myhand=detector.findHands(photo)
+    if myhand and myhand[0]:
+        mylmlist=myhand[0][0]
+        myfingerup=detector.fingersUp(mylmlist)
+    cv2.imshow("Hand Tracking", photo)
+    if cv2.waitKey(1) & 0xFF==ord('q'): #press q to close the camera
+        break
+cap.release()
+cv2.destroyAllWindows()
